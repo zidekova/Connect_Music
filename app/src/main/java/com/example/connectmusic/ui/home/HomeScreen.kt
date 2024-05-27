@@ -39,15 +39,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.connectmusic.ConnectMusicTopAppBar
 import com.example.connectmusic.R
+import com.example.connectmusic.data.tables.Playlist
+import com.example.connectmusic.ui.AppViewModelProvider
 import com.example.connectmusic.ui.navigation.NavigationDestination
-//import com.example.inventory.InventoryTopAppBar
-//import com.example.inventory.R
-//import com.example.inventory.data.Item
-//import com.example.inventory.ui.AppViewModelProvider
-//import com.example.inventory.ui.item.formatedPrice
-//import com.example.inventory.ui.navigation.NavigationDestination
-//import com.example.inventory.ui.theme.InventoryTheme
+import com.example.connectmusic.ui.theme.ConnectMusicTheme
+
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
@@ -60,154 +58,148 @@ object HomeDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    //navigateToItemEntry: () -> Unit,
+    navigateToPlaylistEntry: () -> Unit,
     //navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    //viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    //val homeUiState by viewModel.homeUiState.collectAsState()
-//    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-//
-//    Scaffold(
-//        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-//        topBar = {
-//            InventoryTopAppBar(
-//                title = stringResource(HomeDestination.titleRes),
-//                canNavigateBack = false,
-//                scrollBehavior = scrollBehavior
-//            )
-//        },
-//        floatingActionButton = {
-//            FloatingActionButton(
-//                onClick = navigateToItemEntry,
-//                shape = MaterialTheme.shapes.medium,
-//                modifier = Modifier
-//                    .padding(
-//                        end = WindowInsets.safeDrawing.asPaddingValues()
-//                            .calculateEndPadding(LocalLayoutDirection.current)
-//                    )
-//            ) {
-//                Icon(
-//                    imageVector = Icons.Default.Add,
-//                    contentDescription = stringResource(R.string.item_entry_title)
-//                )
-//            }
-//        },
-//    ) { innerPadding ->
-//        HomeBody(
-//            itemList = homeUiState.itemList,
-//            onItemClick = navigateToItemUpdate,
-//            modifier = modifier.fillMaxSize(),
-//            contentPadding = innerPadding,
-//        )
-//    }
+    val homeUiState by viewModel.homeUiState.collectAsState()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            ConnectMusicTopAppBar(
+                title = stringResource(HomeDestination.titleRes),
+                canNavigateBack = false,
+                scrollBehavior = scrollBehavior
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToPlaylistEntry,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier
+                    .padding(
+                        end = WindowInsets.safeDrawing.asPaddingValues()
+                            .calculateEndPadding(LocalLayoutDirection.current)
+                    )
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.playlist_entry_title)
+                )
+            }
+        },
+    ) { innerPadding ->
+        HomeBody(
+            playlistsList = homeUiState.playlistsList,
+            //onItemClick = navigateToItemUpdate,
+            modifier = modifier.fillMaxSize(),
+            contentPadding = innerPadding,
+        )
+    }
 }
 
 @Composable
 private fun HomeBody(
-    //itemList: List<Item>,
-    onItemClick: (Int) -> Unit,
+    playlistsList: List<Playlist>,
+    //onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
-//    Column(
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        modifier = modifier,
-//    ) {
-//        if (itemList.isEmpty()) {
-//            Text(
-//                text = stringResource(R.string.no_item_description),
-//                textAlign = TextAlign.Center,
-//                style = MaterialTheme.typography.titleLarge,
-//                modifier = Modifier.padding(contentPadding),
-//            )
-//        } else {
-//            InventoryList(
-//                itemList = itemList,
-//                onItemClick = { onItemClick(it.id) },
-//                contentPadding = contentPadding,
-//                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
-//            )
-//        }
-//    }
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier,
+    ) {
+        if (playlistsList.isEmpty()) {
+            Text(
+                text = stringResource(R.string.no_playlist_description),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(contentPadding),
+            )
+        } else {
+            PlaylistsList(
+                playlistsList = playlistsList,
+                //onItemClick = { onItemClick(it.id) },
+                contentPadding = contentPadding,
+                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+            )
+        }
+    }
 }
 
 @Composable
-private fun InventoryList(
-    //itemList: List<Item>,
+private fun PlaylistsList(
+    playlistsList: List<Playlist>,
     //onItemClick: (Item) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
-//    LazyColumn(
-//        modifier = modifier,
-//        contentPadding = contentPadding
-//    ) {
-//        items(items = itemList, key = { it.id }) { item ->
-//            InventoryItem(item = item,
-//                modifier = Modifier
-//                    .padding(dimensionResource(id = R.dimen.padding_small))
-//                    .clickable { onItemClick(item) })
-//        }
-//    }
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = contentPadding
+    ) {
+        items(items = playlistsList, key = { it.idPlaylist }) { playlist ->
+            SavedPlaylist(playlist = playlist,
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.padding_small)))
+                    //.clickable { onItemClick(item) })
+        }
+    }
 }
 
 @Composable
-private fun InventoryItem(
-    //item: Item, modifier: Modifier = Modifier
+private fun SavedPlaylist(
+    playlist: Playlist, modifier: Modifier = Modifier
 ) {
-//    Card(
-//        modifier = modifier, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-//    ) {
-//        Column(
-//            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
-//            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
-//        ) {
-//            Row(
-//                modifier = Modifier.fillMaxWidth()
-//            ) {
-//                Text(
-//                    text = item.name,
-//                    style = MaterialTheme.typography.titleLarge,
-//                )
-//                Spacer(Modifier.weight(1f))
-//                Text(
-//                    text = item.formatedPrice(),
-//                    style = MaterialTheme.typography.titleMedium
-//                )
-//            }
-//            Text(
-//                text = stringResource(R.string.in_stock, item.quantity),
-//                style = MaterialTheme.typography.titleMedium
-//            )
-//        }
-//    }
+    Card(
+        modifier = modifier, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = playlist.namePlaylist,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                Spacer(Modifier.weight(1f))
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun HomeBodyPreview() {
-//    InventoryTheme {
-//        HomeBody(listOf(
-//            Item(1, "Game", 100.0, 20), Item(2, "Pen", 200.0, 30), Item(3, "TV", 300.0, 50)
-//        ), onItemClick = {})
-//    }
+    ConnectMusicTheme {
+        HomeBody(listOf(
+            Playlist(1, "Game", 2), Playlist(2, "Pen", 8), Playlist(3, "TV", 9)))
+        //), onItemClick = {})
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun HomeBodyEmptyListPreview() {
-//    InventoryTheme {
-//        HomeBody(listOf(), onItemClick = {})
-//    }
+    ConnectMusicTheme {
+        HomeBody(listOf()
+            //onItemClick = {}
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun InventoryItemPreview() {
-//    InventoryTheme {
-//        InventoryItem(
-//            Item(1, "Game", 100.0, 20),
-//        )
-//    }
+    ConnectMusicTheme {
+        SavedPlaylist(
+            Playlist(1, "Game", 2),
+        )
+    }
 }

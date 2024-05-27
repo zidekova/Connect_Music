@@ -1,5 +1,6 @@
 package com.example.connectmusic.data.tables
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -12,6 +13,8 @@ data class Song(
     @PrimaryKey(autoGenerate = true)
     val idSong: Int = 0,
     val nameSong: String,
+    @ColumnInfo(name = "idInterpret", index = true)
     val idInterpret: Int,
+    @ColumnInfo(name = "idDecade", index = true)
     val idDecade: Int
 )

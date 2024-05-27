@@ -9,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.connectmusic.ui.home.HomeDestination
 import com.example.connectmusic.ui.home.HomeScreen
+import com.example.connectmusic.ui.playlist.PlaylistEntryDestination
+import com.example.connectmusic.ui.playlist.PlaylistEntryScreen
 
 /**
  * Provides Navigation graph for the application.
@@ -23,33 +25,33 @@ fun ConnectMusicNavHost(
         startDestination = HomeDestination.route,
         modifier = modifier
     ) {
-//        composable(route = HomeDestination.route) {
-//            HomeScreen(
-//                navigateToItemEntry = { navController.navigate(ItemEntryDestination.route) },
+        composable(route = HomeDestination.route) {
+            HomeScreen(
+                navigateToPlaylistEntry = { navController.navigate(PlaylistEntryDestination.route) },
 //                navigateToItemUpdate = {
 //                    navController.navigate("${ItemDetailsDestination.route}/${it}")
 //                }
-//            )
-//        }
-//        composable(route = ItemEntryDestination.route) {
-//            ItemEntryScreen(
-//                navigateBack = { navController.popBackStack() },
-//                onNavigateUp = { navController.navigateUp() }
-//            )
-//        }
+            )
+        }
+        composable(route = PlaylistEntryDestination.route) {
+            PlaylistEntryScreen(
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
 //        composable(
-//            route = ItemDetailsDestination.routeWithArgs,
-//            arguments = listOf(navArgument(ItemDetailsDestination.itemIdArg) {
+//            route = PlaylistDetailsDestination.routeWithArgs,
+//            arguments = listOf(navArgument(PlaylistDetailsDestination.itemIdArg) {
 //                type = NavType.IntType
 //            })
 //        ) {
-//            ItemDetailsScreen(
-//                navigateToEditItem = { navController.navigate("${ItemEditDestination.route}/$it") },
+//            PlaylistDetailsScreen(
+//                navigateToEditItem = { navController.navigate("${PlaylistEditDestination.route}/$it") },
 //                navigateBack = { navController.navigateUp() }
 //            )
 //        }
 //        composable(
-//            route = ItemEditDestination.routeWithArgs,
+//            route = EditDestination.routeWithArgs,
 //            arguments = listOf(navArgument(ItemEditDestination.itemIdArg) {
 //                type = NavType.IntType
 //            })

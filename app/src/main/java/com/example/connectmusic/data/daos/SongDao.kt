@@ -1,5 +1,6 @@
 package com.example.connectmusic.data.daos
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -8,6 +9,7 @@ import androidx.room.Update
 import com.example.connectmusic.data.tables.Song
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface SongDao {
     @Query("SELECT * from song ORDER BY nameSong ASC")
     fun getAllSongs(): Flow<List<Song>>

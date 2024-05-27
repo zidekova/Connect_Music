@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Connect Music</string>
     <string name="back_button">Back</string>
+    <string name="no_playlist_description">Oops!\nNo playlists saved.\nTap + to add.</string>
+    <string name="playlist_entry_title">Add Playlist</string>
+    <string name="playlist_name_req">Item Name*</string>
+    <string name="required_fields">*required fields</string>
+    <string name="save_action">Save</string>
 </resources>
