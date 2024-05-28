@@ -11,6 +11,8 @@ import com.example.connectmusic.ui.home.HomeDestination
 import com.example.connectmusic.ui.home.HomeScreen
 import com.example.connectmusic.ui.playlist.PlaylistEntryDestination
 import com.example.connectmusic.ui.playlist.PlaylistEntryScreen
+import com.example.connectmusic.ui.search.SearchEntryDestination
+import com.example.connectmusic.ui.search.SearchEntryScreen
 
 /**
  * Provides Navigation graph for the application.
@@ -28,6 +30,7 @@ fun ConnectMusicNavHost(
         composable(route = HomeDestination.route) {
             HomeScreen(
                 navigateToPlaylistEntry = { navController.navigate(PlaylistEntryDestination.route) },
+                navigateToSearchEntry = { navController.navigate(SearchEntryDestination.route) }
 //                navigateToItemUpdate = {
 //                    navController.navigate("${ItemDetailsDestination.route}/${it}")
 //                }
@@ -35,6 +38,13 @@ fun ConnectMusicNavHost(
         }
         composable(route = PlaylistEntryDestination.route) {
             PlaylistEntryScreen(
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() },
+                navigateToSearchEntry = { navController.navigate(SearchEntryDestination.route) }
+            )
+        }
+        composable(route = SearchEntryDestination.route) {
+            SearchEntryScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )

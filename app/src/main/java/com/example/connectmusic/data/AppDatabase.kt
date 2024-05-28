@@ -15,7 +15,7 @@ import com.example.connectmusic.data.tables.Interpret
 import com.example.connectmusic.data.tables.Playlist
 import com.example.connectmusic.data.tables.Song
 
-@Database(entities = [Genre::class, Decade::class, Interpret::class, Song::class, Playlist::class], version = 1, exportSchema = false)
+@Database(entities = [Genre::class, Decade::class, Interpret::class, Song::class, Playlist::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun genreDao(): GenreDao

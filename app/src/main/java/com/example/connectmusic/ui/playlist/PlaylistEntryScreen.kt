@@ -2,14 +2,23 @@ package com.example.connectmusic.ui.playlist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -38,6 +47,7 @@ object PlaylistEntryDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistEntryScreen(
+    navigateToSearchEntry: () -> Unit,
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     canNavigateBack: Boolean = true,
@@ -51,7 +61,30 @@ fun PlaylistEntryScreen(
                 canNavigateBack = canNavigateBack,
                 navigateUp = onNavigateUp
             )
-        }
+        },
+        floatingActionButton = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(R.dimen.padding_medium)),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                FloatingActionButton(
+                    onClick = navigateToSearchEntry,
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier
+                        .padding(
+                            dimensionResource(R.dimen.padding_extra_large),
+                            bottom = dimensionResource(R.dimen.padding_small)
+                        )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = stringResource(R.string.search_entry_title)
+                    )
+                }
+            }
+        },
     ) { innerPadding ->
         PlaylistEntryBody(
             playlistUiState = viewModel.playlistUiState,
@@ -136,7 +169,7 @@ fun PlaylistInputForm(
 
 @Preview(showBackground = true)
 @Composable
-private fun ItemEntryScreenPreview() {
+private fun PlaylistEntryScreenPreview() {
     ConnectMusicTheme {
         PlaylistEntryBody(playlistUiState = PlaylistUiState(
             PlaylistDetails(
