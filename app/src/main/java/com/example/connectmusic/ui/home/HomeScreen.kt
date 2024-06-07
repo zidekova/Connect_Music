@@ -168,7 +168,7 @@ private fun PlaylistsList(
         modifier = modifier,
         contentPadding = contentPadding
     ) {
-        items(items = playlistsList, key = { it.idPlaylist }) { playlist ->
+        items(items = playlistsList, key = { it.id_playlist }) { playlist ->
             SavedPlaylist(playlist = playlist,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small)))
@@ -192,7 +192,7 @@ private fun SavedPlaylist(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = playlist.namePlaylist,
+                    text = playlist.name_playlist,
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Spacer(Modifier.weight(1f))
@@ -206,7 +206,7 @@ private fun SavedPlaylist(
 fun HomeBodyPreview() {
     ConnectMusicTheme {
         HomeBody(listOf(
-            Playlist(1, "Game", 2), Playlist(2, "Pen", 8), Playlist(3, "TV", 9)))
+            Playlist(1, "Game"), Playlist(2, "Pen"), Playlist(3, "TV")))
         //), onItemClick = {})
     }
 }
@@ -226,7 +226,7 @@ fun HomeBodyEmptyListPreview() {
 fun InventoryItemPreview() {
     ConnectMusicTheme {
         SavedPlaylist(
-            Playlist(1, "Game", 2),
+            Playlist(1, "Game"),
         )
     }
 }

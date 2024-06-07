@@ -6,23 +6,22 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.connectmusic.data.tables.PlaylistSong
 import com.example.connectmusic.data.tables.Song
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface SongDao {
-    @Query("SELECT * from song ORDER BY name_song ASC")
-    fun getAllSongs(): Flow<List<Song>>
-
-    @Query("SELECT * from song WHERE id_song = :id")
-    fun getSong(id: Int): Flow<Song>
+interface PlaylistSongDao {
+    ///////////////// UPRAVIT //////////////////////
+    @Query("SELECT * from playlist_song")
+    fun getAllPlaylistSongs(): Flow<List<PlaylistSong>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(song: Song)
+    suspend fun insert(playlistSong: PlaylistSong)
 
     @Update
-    suspend fun update(song: Song)
+    suspend fun update(playlistSong: PlaylistSong)
 
     @Delete
-    suspend fun delete(song: Song)
+    suspend fun delete(playlistSong: PlaylistSong)
 }

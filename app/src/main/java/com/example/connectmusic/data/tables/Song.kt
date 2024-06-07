@@ -6,15 +6,15 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "song", foreignKeys = [
-    ForeignKey(entity = Interpret::class, parentColumns = ["idInterpret"], childColumns = ["idInterpret"], onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE),
-    ForeignKey(entity = Decade::class, parentColumns = ["idDecade"], childColumns = ["idDecade"], onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)
+    ForeignKey(entity = Interpret::class, parentColumns = ["id_interpret"], childColumns = ["id_interpret"], onDelete = ForeignKey.NO_ACTION, onUpdate = ForeignKey.NO_ACTION),
+    ForeignKey(entity = Decade::class, parentColumns = ["id_decade"], childColumns = ["id_decade"], onDelete = ForeignKey.NO_ACTION, onUpdate = ForeignKey.NO_ACTION)
 ])
 data class Song(
     @PrimaryKey(autoGenerate = true)
-    val idSong: Int = 0,
-    val nameSong: String,
-    @ColumnInfo(name = "idInterpret", index = true)
-    val idInterpret: Int,
-    @ColumnInfo(name = "idDecade", index = true)
-    val idDecade: Int
+    val id_song: Int = 0,
+    val name_song: String,
+    @ColumnInfo(name = "id_interpret", index = true)
+    val id_interpret: Int,
+    @ColumnInfo(name = "id_decade", index = true)
+    val id_decade: Int
 )

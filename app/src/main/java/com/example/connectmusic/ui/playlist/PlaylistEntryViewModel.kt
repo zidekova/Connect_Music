@@ -42,9 +42,8 @@ data class PlaylistDetails(
 )
 
 fun PlaylistDetails.toPlaylist(): Playlist = Playlist(
-    idPlaylist = idPlaylist,
-    namePlaylist = namePlaylist,
-    idSong = idSong
+    id_playlist = idPlaylist,
+    name_playlist = namePlaylist
 )
 
 fun Playlist.toPlayslistUiState(isEntryValid: Boolean = false): PlaylistUiState = PlaylistUiState(
@@ -53,7 +52,6 @@ fun Playlist.toPlayslistUiState(isEntryValid: Boolean = false): PlaylistUiState 
 )
 
 fun Playlist.toPlaylistDetails(): PlaylistDetails = PlaylistDetails(
-    idPlaylist = idPlaylist,
-    namePlaylist = namePlaylist,
-    idSong = idSong
+    idPlaylist = id_playlist,
+    namePlaylist = name_playlist
 )

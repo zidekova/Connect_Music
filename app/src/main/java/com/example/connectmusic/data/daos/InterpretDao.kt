@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface InterpretDao {
-    @Query("SELECT * from interpret ORDER BY nameInterpret ASC")
+    @Query("SELECT * from interpret ORDER BY name_interpret ASC")
     fun getAllInterprets(): Flow<List<Interpret>>
 
-    @Query("SELECT * from interpret WHERE idInterpret = :id")
+    @Query("SELECT * from interpret WHERE id_interpret = :id")
     fun getInterpret(id: Int): Flow<Interpret>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

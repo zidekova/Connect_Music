@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PlaylistDao {
-    @Query("SELECT * from playlist ORDER BY namePlaylist ASC")
+    @Query("SELECT * from playlist ORDER BY name_playlist ASC")
     fun getAllPlaylists(): Flow<List<Playlist>>
 
-    @Query("SELECT * from playlist WHERE idPlaylist = :id")
+    @Query("SELECT * from playlist WHERE id_playlist = :id")
     fun getPlaylist(id: Int): Flow<Playlist>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
