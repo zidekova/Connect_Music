@@ -33,18 +33,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.connectmusic.ConnectMusicTopAppBar
 import com.example.connectmusic.R
 import com.example.connectmusic.ui.navigation.NavigationDestination
-
 import com.example.connectmusic.ui.theme.ConnectMusicTheme
 import kotlinx.coroutines.launch
 
-object SearchEntryDestination : NavigationDestination {
-    override val route = "search_entry"
+object SearchPickDestination : NavigationDestination {
+    override val route = "search_pick"
     override val titleRes = R.string.search_entry_title
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchEntryScreen(
+fun SearchPickScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     canNavigateBack: Boolean = true
@@ -80,7 +79,7 @@ fun SearchEntryScreen(
 }
 
 @Composable
-fun SearchEntryBody(
+fun SearchPickBody(
     options: List<String>,
     onSelectionChanged: (String) -> Unit = {},
     onNextClick: () -> Unit,
@@ -131,14 +130,17 @@ fun SearchEntryBody(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun SearchEntryScreenPreview() {
-    ConnectMusicTheme {
-        SearchEntryBody(
-            options = listOf(stringResource(R.string.genre), stringResource(R.string.decade), stringResource(R.string.interpret)),
-            onNextClick = {},
-            modifier = Modifier.fillMaxHeight()
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun SearchEntryScreenPreview() {
+//    ConnectMusicTheme {
+//        SearchEntryBody(
+//            options = listOf(
+//                stringResource(R.string.genre), stringResource(R.string.decade), stringResource(
+//                    R.string.interpret)
+//            ),
+//            onNextClick = {},
+//            modifier = Modifier.fillMaxHeight()
+//        )
+//    }
+//}
