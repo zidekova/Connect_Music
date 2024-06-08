@@ -48,6 +48,7 @@ object AppViewModelProvider {
                 connectMusicApplication().container.genreRepository,
                 connectMusicApplication().container.interpretRepository,
                 connectMusicApplication().container.decadeRepository,
+                connectMusicApplication().container.songRepository,
             )
         }
     }

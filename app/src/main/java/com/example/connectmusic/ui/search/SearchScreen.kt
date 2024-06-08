@@ -23,14 +23,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.connectmusic.R
+import com.example.connectmusic.data.tables.Song
 import com.example.connectmusic.ui.AppViewModelProvider
 import com.example.connectmusic.ui.navigation.NavigationDestination
+import kotlinx.coroutines.launch
 
 object SearchDestination : NavigationDestination {
     override val route = "search_entry"
@@ -40,8 +43,9 @@ object SearchDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-    searchViewModel: SearchViewModel2 = viewModel(factory = AppViewModelProvider.Factory),
+    searchViewModel: SearchViewModel = viewModel(factory = AppViewModelProvider.Factory),
     navigateBack: () -> Unit,
+    navigateToSongDetail: (Int) -> Unit,
     //onSearch: (String, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -51,6 +55,8 @@ fun SearchScreen(
     var isOptionDropdownExpanded by remember { mutableStateOf(false) }
 
     val methods = listOf("Žáner", "Interpret", "Obdobie")
+
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -154,7 +160,13 @@ fun SearchScreen(
                 Button(
                     onClick = {
                         if (selectedMethod.isNotBlank() && selectedOption.isNotBlank()) {
-                            //onSearch(selectedMethod, selectedOption)
+                            coroutineScope.launch {
+                                val randomSong = searchViewModel.getRandomSong(selectedMethod, selectedOption)
+                                randomSong?.let {
+                                    searchViewModel.setRandomSong(it)
+                                    navigateToSongDetail(it.id_song)
+                                }
+                            }
                         }
                     },
                     enabled = selectedMethod.isNotBlank() && selectedOption.isNotBlank(),
