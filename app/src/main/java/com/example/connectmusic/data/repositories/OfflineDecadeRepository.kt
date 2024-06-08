@@ -4,7 +4,7 @@ import com.example.connectmusic.data.daos.DecadeDao
 import com.example.connectmusic.data.tables.Decade
 import kotlinx.coroutines.flow.Flow
 
-class OfflineDecadeRepository(private val decadeDao: DecadeDao) : DecadeRepository {
+class OfflineDecadeRepository(private val decadeDao: DecadeDao) : DecadesRepository {
     override fun getAllDecadesStream(): Flow<List<Decade>> = decadeDao.getAllDecades()
     override fun getAllDecadesNames(): Flow<List<String>> = decadeDao.getAllDecadesNames()
 

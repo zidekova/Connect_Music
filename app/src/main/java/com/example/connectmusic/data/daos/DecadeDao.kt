@@ -14,7 +14,7 @@ interface DecadeDao {
     @Query("SELECT * from decade ORDER BY name_decade ASC")
     fun getAllDecades(): Flow<List<Decade>>
 
-    @Query("SELECT name_decade from decade ORDER BY name_decade ASC")
+    @Query("SELECT name_decade from decade")
     fun getAllDecadesNames(): Flow<List<String>>
 
     @Query("SELECT * from decade WHERE id_decade = :id")

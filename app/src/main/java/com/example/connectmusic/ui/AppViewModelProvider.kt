@@ -47,8 +47,8 @@ object AppViewModelProvider {
             SearchViewModel(
                 connectMusicApplication().container.genreRepository,
                 connectMusicApplication().container.interpretRepository,
-                //connectMusicApplication().container.decadeRepository,
-                )
+                connectMusicApplication().container.decadeRepository,
+            )
         }
     }
 }
