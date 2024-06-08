@@ -14,6 +14,9 @@ interface InterpretDao {
     @Query("SELECT * from interpret ORDER BY name_interpret ASC")
     fun getAllInterprets(): Flow<List<Interpret>>
 
+    @Query("SELECT name_interpret from interpret ORDER BY name_interpret ASC")
+    fun getAllInterpretsNames(): Flow<List<String>>
+
     @Query("SELECT * from interpret WHERE id_interpret = :id")
     fun getInterpret(id: Int): Flow<Interpret>
 

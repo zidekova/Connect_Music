@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class OfflineGenreRepository(private val genreDao: GenreDao) : GenreRepository {
     override fun getAllGenresStream(): Flow<List<Genre>> = genreDao.getAllGenres()
+    override fun getAllGenresNames(): Flow<List<String>> = genreDao.getAllGenresNames()
 
     override fun getGenreStream(id: Int): Flow<Genre?> = genreDao.getGenre(id)
 

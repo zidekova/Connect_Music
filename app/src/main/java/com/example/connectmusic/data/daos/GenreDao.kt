@@ -14,6 +14,9 @@ interface GenreDao {
     @Query("SELECT * from genre ORDER BY name_genre ASC")
     fun getAllGenres(): Flow<List<Genre>>
 
+    @Query("SELECT name_genre from genre ORDER BY name_genre ASC")
+    fun getAllGenresNames(): Flow<List<String>>
+
     @Query("SELECT * from genre WHERE id_genre = :id")
     fun getGenre(id: Int): Flow<Genre>
 

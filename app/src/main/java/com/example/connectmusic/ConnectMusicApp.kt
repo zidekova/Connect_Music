@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.connectmusic.R.string
+import com.example.connectmusic.data.repositories.GenreRepository
 import com.example.connectmusic.ui.navigation.ConnectMusicNavHost
 
 /**
@@ -21,7 +22,10 @@ import com.example.connectmusic.ui.navigation.ConnectMusicNavHost
  */
 @Composable
 fun ConnectMusicApp(navController: NavHostController = rememberNavController()) {
-    ConnectMusicNavHost(navController = navController)
+
+    ConnectMusicNavHost(
+        navController = navController,
+    )
 }
 
 /**

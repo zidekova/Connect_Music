@@ -65,7 +65,7 @@ object HomeDestination : NavigationDestination {
 fun HomeScreen(
     navigateToPlaylistEntry: () -> Unit,
     navigateToSearchEntry: () -> Unit,
-    //navigateToItemUpdate: (Int) -> Unit,
+    navigateToPlaylistDetails: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -121,7 +121,7 @@ fun HomeScreen(
     ) { innerPadding ->
         HomeBody(
             playlistsList = homeUiState.playlistsList,
-            //onItemClick = navigateToItemUpdate,
+            onPlaylistClick = navigateToPlaylistDetails,
             modifier = modifier.fillMaxSize(),
             contentPadding = innerPadding,
         )
@@ -131,7 +131,7 @@ fun HomeScreen(
 @Composable
 private fun HomeBody(
     playlistsList: List<Playlist>,
-    //onItemClick: (Int) -> Unit,
+    onPlaylistClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -149,7 +149,7 @@ private fun HomeBody(
         } else {
             PlaylistsList(
                 playlistsList = playlistsList,
-                //onItemClick = { onItemClick(it.id) },
+                onPlaylistClick = { onPlaylistClick(it.id_playlist) },
                 contentPadding = contentPadding,
                 modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
             )
@@ -160,7 +160,7 @@ private fun HomeBody(
 @Composable
 private fun PlaylistsList(
     playlistsList: List<Playlist>,
-    //onItemClick: (Item) -> Unit,
+    onPlaylistClick: (Playlist) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
@@ -171,8 +171,8 @@ private fun PlaylistsList(
         items(items = playlistsList, key = { it.id_playlist }) { playlist ->
             SavedPlaylist(playlist = playlist,
                 modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.padding_small)))
-                    //.clickable { onItemClick(item) })
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .clickable { onPlaylistClick(playlist) })
         }
     }
 }
@@ -198,35 +198,5 @@ private fun SavedPlaylist(
                 Spacer(Modifier.weight(1f))
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeBodyPreview() {
-    ConnectMusicTheme {
-        HomeBody(listOf(
-            Playlist(1, "Game"), Playlist(2, "Pen"), Playlist(3, "TV")))
-        //), onItemClick = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeBodyEmptyListPreview() {
-    ConnectMusicTheme {
-        HomeBody(listOf()
-            //onItemClick = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun InventoryItemPreview() {
-    ConnectMusicTheme {
-        SavedPlaylist(
-            Playlist(1, "Game"),
-        )
     }
 }

@@ -47,7 +47,6 @@ object PlaylistEntryDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistEntryScreen(
-    navigateToSearchEntry: () -> Unit,
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     canNavigateBack: Boolean = true,
@@ -61,29 +60,6 @@ fun PlaylistEntryScreen(
                 canNavigateBack = canNavigateBack,
                 navigateUp = onNavigateUp
             )
-        },
-        floatingActionButton = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(dimensionResource(R.dimen.padding_medium)),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                FloatingActionButton(
-                    onClick = navigateToSearchEntry,
-                    shape = MaterialTheme.shapes.medium,
-                    modifier = Modifier
-                        .padding(
-                            dimensionResource(R.dimen.padding_extra_large),
-                            bottom = dimensionResource(R.dimen.padding_small)
-                        )
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = stringResource(R.string.search_entry_title)
-                    )
-                }
-            }
         },
     ) { innerPadding ->
         PlaylistEntryBody(
@@ -158,24 +134,5 @@ fun PlaylistInputForm(
             enabled = enabled,
             singleLine = true
         )
-        if (enabled) {
-            Text(
-                text = stringResource(R.string.required_fields),
-                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PlaylistEntryScreenPreview() {
-    ConnectMusicTheme {
-        PlaylistEntryBody(playlistUiState = PlaylistUiState(
-            PlaylistDetails(
-                idPlaylist = 1, namePlaylist = "Playlist name", idSong = 2
-            )
-        ),
-            onPlaylistValueChange = {}, onSaveClick = {})
     }
 }

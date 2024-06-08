@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class OfflineDecadeRepository(private val decadeDao: DecadeDao) : DecadeRepository {
     override fun getAllDecadesStream(): Flow<List<Decade>> = decadeDao.getAllDecades()
+    override fun getAllDecadesNames(): Flow<List<String>> = decadeDao.getAllDecadesNames()
 
     override fun getDecadeStream(id: Int): Flow<Decade?> = decadeDao.getDecade(id)
 

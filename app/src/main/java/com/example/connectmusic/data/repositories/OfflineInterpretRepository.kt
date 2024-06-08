@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class OfflineInterpretRepository(private val interpretDao: InterpretDao) : InterpretRepository {
     override fun getAllInterpretsStream(): Flow<List<Interpret>> = interpretDao.getAllInterprets()
+    override fun getAllInterpretsNames(): Flow<List<String>> = interpretDao.getAllInterpretsNames()
 
     override fun getInterpretStream(id: Int): Flow<Interpret?> = interpretDao.getInterpret(id)
 

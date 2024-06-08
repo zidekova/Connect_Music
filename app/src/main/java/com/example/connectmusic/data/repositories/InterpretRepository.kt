@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface InterpretRepository {
     fun getAllInterpretsStream(): Flow<List<Interpret>>
+    fun getAllInterpretsNames(): Flow<List<String>>
     fun getInterpretStream(id: Int): Flow<Interpret?>
     suspend fun insertInterpret(interpret: Interpret)
     suspend fun deleteInterpret(interpret: Interpret)
