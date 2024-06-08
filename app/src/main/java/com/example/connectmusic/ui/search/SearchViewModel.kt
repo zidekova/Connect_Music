@@ -6,7 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.connectmusic.data.repositories.DecadesRepository
 import com.example.connectmusic.data.repositories.GenreRepository
 import com.example.connectmusic.data.repositories.InterpretRepository
+import com.example.connectmusic.data.repositories.PlaylistRepository
+import com.example.connectmusic.data.repositories.PlaylistSongRepository
 import com.example.connectmusic.data.repositories.SongRepository
+import com.example.connectmusic.data.tables.Playlist
+import com.example.connectmusic.data.tables.PlaylistSong
 import com.example.connectmusic.data.tables.Song
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +22,9 @@ class SearchViewModel(
     private val genreRepository: GenreRepository,
     private val interpretRepository: InterpretRepository,
     private val decadeRepository: DecadesRepository,
-    private val songRepository: SongRepository
+    private val songRepository: SongRepository,
+    private val playlistRepository: PlaylistRepository,
+    private val playlistSongRepository: PlaylistSongRepository
 ) : ViewModel() {
 
     private val _selectedMethod = MutableStateFlow("")
@@ -29,6 +35,13 @@ class SearchViewModel(
 
     private val _randomSong = MutableStateFlow<Song?>(null)
     val randomSong: StateFlow<Song?> = _randomSong
+
+    private val _playlists = MutableStateFlow<List<Playlist>>(emptyList())
+    val playlists: StateFlow<List<Playlist>> = _playlists
+
+    init {
+        loadPlaylists() // Automatické načtení seznamu playlistů při vytvoření instance ViewModelu
+    }
 
     fun setMethod(method: String) {
         _selectedMethod.value = method
@@ -108,5 +121,21 @@ class SearchViewModel(
 
     fun setRandomSong(song: Song?) {
         _randomSong.value = song
+    }
+
+    fun loadPlaylists() {
+        viewModelScope.launch {
+            playlistRepository.getAllPlaylistsStream().collect {
+                _playlists.value = it
+            }
+        }
+    }
+
+    suspend fun addSongToPlaylist(songId: Int, playlistId: Int) {
+        val playlistSong = PlaylistSong(
+            id_playlist = playlistId,
+            id_song = songId
+        )
+        playlistSongRepository.insertPlaylistSong(playlistSong)
     }
 }

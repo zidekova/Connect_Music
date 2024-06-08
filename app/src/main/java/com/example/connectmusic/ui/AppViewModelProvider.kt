@@ -33,7 +33,8 @@ object AppViewModelProvider {
         initializer {
             PlaylistDetailsViewModel(
                 this.createSavedStateHandle(),
-                connectMusicApplication().container.playlistRepository
+                connectMusicApplication().container.playlistRepository,
+                connectMusicApplication().container.playlistSongRepository
             )
         }
 
@@ -49,6 +50,8 @@ object AppViewModelProvider {
                 connectMusicApplication().container.interpretRepository,
                 connectMusicApplication().container.decadeRepository,
                 connectMusicApplication().container.songRepository,
+                connectMusicApplication().container.playlistRepository,
+                connectMusicApplication().container.playlistSongRepository
             )
         }
     }

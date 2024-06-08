@@ -4,12 +4,15 @@
     <string name="back_button">Späť</string>
     <string name="delete">Vymaž</string>
     <string name="delete_question">Naozaj chcete vymazať tento playlist?</string>
+    <string name="delete_playlist_title">Odstránenie playlistu</string>
     <string name="no">Nie</string>
     <string name="yes">Áno</string>
     <string name="no_playlist_description">Ups!\nŽiadne uložené playlisty.\nStlač + a pridaj nový playlist.</string>
+    <string name="no_songs_description">Tento playlist je prázdny!</string>
     <string name="pick_method">Vyber si spôsob výberu pesničky:</string>
     <string name="playlist">Playlist</string>
     <string name="playlist_entry_title">Vytvor nový playlist</string>
+    <string name="playlist_details_title">Detaily o playliste</string>
     <string name="playlist_name_req">Názov playlistu</string>
     <string name="save_action">Ulož</string>
     <string name="next_action">Ďalej</string>

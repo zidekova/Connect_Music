@@ -8,8 +8,10 @@ import com.example.connectmusic.data.repositories.OfflineDecadeRepository
 import com.example.connectmusic.data.repositories.OfflineGenreRepository
 import com.example.connectmusic.data.repositories.OfflineInterpretRepository
 import com.example.connectmusic.data.repositories.OfflinePlaylistRepository
+import com.example.connectmusic.data.repositories.OfflinePlaylistSongRepository
 import com.example.connectmusic.data.repositories.OfflineSongRepository
 import com.example.connectmusic.data.repositories.PlaylistRepository
+import com.example.connectmusic.data.repositories.PlaylistSongRepository
 import com.example.connectmusic.data.repositories.SongRepository
 
 interface AppContainer {
@@ -18,6 +20,7 @@ interface AppContainer {
     val interpretRepository: InterpretRepository
     val songRepository: SongRepository
     val playlistRepository: PlaylistRepository
+    val playlistSongRepository: PlaylistSongRepository
 }
 
 class AppDataContainer(private val context: Context) : AppContainer {
@@ -35,5 +38,8 @@ class AppDataContainer(private val context: Context) : AppContainer {
     }
     override val playlistRepository: PlaylistRepository by lazy {
         OfflinePlaylistRepository(AppDatabase.getDatabase(context).playlistDao())
+    }
+    override val playlistSongRepository: PlaylistSongRepository by lazy {
+        OfflinePlaylistSongRepository(AppDatabase.getDatabase(context).playlistSongDao())
     }
 }
