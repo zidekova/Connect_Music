@@ -23,9 +23,6 @@ class HomeViewModel(playlistRepository: PlaylistRepository) : ViewModel() {
     }
 }
 
-/**
- * Ui State for HomeScreen
- */
 data class HomeUiState(
     val playlistsList: List<Playlist> = listOf()
 )

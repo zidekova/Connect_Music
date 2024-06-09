@@ -21,8 +21,17 @@ interface PlaylistSongDao {
     @Query("SELECT name_song from song JOIN playlist_song USING(id_song) WHERE id_playlist = :idPlaylist")
     fun getAllPlaylistSongsNames(idPlaylist: Int): List<String>
 
+    @Query("SELECT * from playlist_song WHERE id_playlist = :idPlaylist")
+    fun getAllPlaylistSongs(idPlaylist: Int): List<PlaylistSong>
+
     @Query("DELETE from playlist_song WHERE id_playlist = :idPlaylist")
     suspend fun deletePlaylistSongFromPlaylist(idPlaylist: Int)
+
+    @Query("DELETE from playlist_song WHERE id_song = :idSong AND id_playlist = :idPlaylist")
+    suspend fun deleteSongFromPlaylist(idPlaylist: Int, idSong: Int)
+
+    @Query("SELECT id_song from playlist_song JOIN song USING(id_song) WHERE name_song = :nameSong")
+    fun getIdSongByName(nameSong: String): Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(playlistSong: PlaylistSong)

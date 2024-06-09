@@ -1,5 +1,6 @@
 package com.example.connectmusic.ui.playlist
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -72,6 +73,7 @@ object PlaylistDetailsDestination : NavigationDestination {
 @Composable
 fun PlaylistDetailsScreen(
     navigateBack: () -> Unit,
+    navigateToSongDetails: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PlaylistDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -131,6 +133,11 @@ fun PlaylistDetailsScreen(
 
         PlaylistDetailsBody(
             songNames = songNames.value,
+            onSongClick = { songName ->
+                coroutineScope.launch {
+                    navigateToSongDetails(viewModel.getIdSongFromName(songName))
+                }
+            },
             modifier = Modifier
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
@@ -144,7 +151,7 @@ fun PlaylistDetailsScreen(
 @Composable
 private fun PlaylistDetailsBody(
     songNames: List<String>,
-    //onSongClick: (Int) -> Unit,
+    onSongClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
@@ -161,7 +168,10 @@ private fun PlaylistDetailsBody(
             )
         } else {
             songNames.forEach { songName ->
-                SavedSong(songName = songName)
+                SavedSong(
+                    songName = songName,
+                    onClick = { onSongClick(songName) }
+                )
             }
         }
     }
@@ -170,10 +180,13 @@ private fun PlaylistDetailsBody(
 @Composable
 private fun SavedSong(
     songName: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .clickable { onClick() } // Add clickable modifier
+            .padding(dimensionResource(id = R.dimen.padding_small)),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
@@ -194,12 +207,12 @@ private fun SavedSong(
 }
 
 @Composable
-private fun DeleteConfirmationDialog(
+fun DeleteConfirmationDialog(
     onDeleteConfirm: () -> Unit, onDeleteCancel: () -> Unit, modifier: Modifier = Modifier
 ) {
     AlertDialog(onDismissRequest = { /* Do nothing */ },
         title = { Text(stringResource(R.string.attention)) },
-        text = { Text(stringResource(R.string.delete_question)) },
+        text = { Text(stringResource(R.string.delete_playlist_question)) },
         modifier = modifier,
         dismissButton = {
             TextButton(onClick = onDeleteCancel) {

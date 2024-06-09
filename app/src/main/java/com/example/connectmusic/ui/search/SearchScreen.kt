@@ -46,7 +46,6 @@ fun SearchScreen(
     searchViewModel: SearchViewModel = viewModel(factory = AppViewModelProvider.Factory),
     navigateBack: () -> Unit,
     navigateToSongDetail: (Int) -> Unit,
-    //onSearch: (String, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var selectedMethod by remember { mutableStateOf("") }

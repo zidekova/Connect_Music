@@ -33,6 +33,8 @@ import com.example.connectmusic.ui.playlist.PlaylistEntryScreen
 import com.example.connectmusic.ui.search.SearchDestination
 import com.example.connectmusic.ui.search.SearchScreen
 import com.example.connectmusic.ui.search.SearchViewModel
+import com.example.connectmusic.ui.song.PlaylistSongDestination
+import com.example.connectmusic.ui.song.PlaylistSongScreen
 import com.example.connectmusic.ui.song.SongDestination
 import com.example.connectmusic.ui.song.SongScreen
 
@@ -68,7 +70,6 @@ fun ConnectMusicNavHost(
             SearchScreen(
                 navigateBack = { navController.popBackStack() },
                 navigateToSongDetail = { songId ->
-                    Log.d("Navigation", "Navigating to SongScreen with songId: $songId")
                     navController.navigate("${SongDestination.route}/$songId")
                 }
             )
@@ -79,34 +80,49 @@ fun ConnectMusicNavHost(
                 type = NavType.IntType
             })
         ) {backStackEntry ->
-            val songId = backStackEntry.arguments?.getInt(SongDestination.songIdArg) ?: -1
+                // Retrieve the songId from the arguments
+                val songId = backStackEntry.arguments?.getInt(SongDestination.songIdArg) ?: return@composable
 
-            SongScreen(
-                songId = songId,
-                navigateBack = { navController.popBackStack() }
-            )
+                SongScreen(
+                    songId = songId,
+                    navigateBack = { navController.popBackStack() }
+                )
         }
         composable(
             route = PlaylistDetailsDestination.routeWithArgs,
             arguments = listOf(navArgument(PlaylistDetailsDestination.playlistIdArg) {
                 type = NavType.IntType
             })
-        ) {
+        ) { backStackEntry ->
+            val playlistId = backStackEntry.arguments?.getInt(PlaylistDetailsDestination.playlistIdArg) ?: return@composable
+
             PlaylistDetailsScreen(
-                //navigateToEditItem = { navController.navigate("${PlaylistEditDestination.route}/$it") },
-                navigateBack = { navController.navigateUp() }
+                navigateToSongDetails = { songId ->
+                    navController.navigate("${PlaylistSongDestination.route}/$songId/$playlistId")
+                },
+                navigateBack = { navController.popBackStack() }
             )
         }
-//        composable(
-//            route = EditDestination.routeWithArgs,
-//            arguments = listOf(navArgument(ItemEditDestination.itemIdArg) {
-//                type = NavType.IntType
-//            })
-//        ) {
-//            ItemEditScreen(
-//                navigateBack = { navController.popBackStack() },
-//                onNavigateUp = { navController.navigateUp() }
-//            )
-//        }
+        composable(
+            route = PlaylistSongDestination.routeWithArgs,
+            arguments = listOf(
+                navArgument(PlaylistSongDestination.songIdArg) {
+                    type = NavType.IntType
+                },
+                navArgument(PlaylistSongDestination.playlistIdArg) {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val songId = backStackEntry.arguments?.getInt(PlaylistSongDestination.songIdArg) ?: return@composable
+            val playlistId = backStackEntry.arguments?.getInt(PlaylistSongDestination.playlistIdArg) ?: return@composable
+            Log.d("NavigationGraph", "Navigating to PlaylistSongScreen with songId: $songId and playlistId: $playlistId")
+
+            PlaylistSongScreen(
+                songId = songId,
+                playlistId = playlistId,
+                navigateBack = { navController.popBackStack() }
+            )
+        }
     }
 }

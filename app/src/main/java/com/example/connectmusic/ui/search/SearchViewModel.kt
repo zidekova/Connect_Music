@@ -12,9 +12,14 @@ import com.example.connectmusic.data.repositories.SongRepository
 import com.example.connectmusic.data.tables.Playlist
 import com.example.connectmusic.data.tables.PlaylistSong
 import com.example.connectmusic.data.tables.Song
+import com.example.connectmusic.ui.home.HomeUiState
+import com.example.connectmusic.ui.home.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -41,10 +46,6 @@ class SearchViewModel(
 
     init {
         loadPlaylists() // Automatické načtení seznamu playlistů při vytvoření instance ViewModelu
-    }
-
-    fun setMethod(method: String) {
-        _selectedMethod.value = method
     }
 
     fun loadDataForMethod(method: String) {
@@ -131,6 +132,12 @@ class SearchViewModel(
         }
     }
 
+    suspend fun getAllSongsFromPlaylist(playlistId: Int) {
+        return withContext(Dispatchers.IO) {
+            playlistSongRepository.getAllPlaylistSongsNames(playlistId)
+        }
+    }
+
     suspend fun addSongToPlaylist(songId: Int, playlistId: Int) {
         val playlistSong = PlaylistSong(
             id_playlist = playlistId,
@@ -138,4 +145,5 @@ class SearchViewModel(
         )
         playlistSongRepository.insertPlaylistSong(playlistSong)
     }
+
 }

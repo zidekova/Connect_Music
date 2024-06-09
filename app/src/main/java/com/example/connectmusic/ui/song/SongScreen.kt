@@ -50,17 +50,14 @@ object SongDestination : NavigationDestination {
     val routeWithArgs = "$route/{$songIdArg}"
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SongScreen(
     songId: Int,
     searchViewModel: SearchViewModel = viewModel(factory = AppViewModelProvider.Factory),
-    //navigateToPlaylistSelection: (Song) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val showDialog = remember { mutableStateOf(false) }
-
     val playlists by searchViewModel.playlists.collectAsState()
 
     val addToPlaylist: (Playlist) -> Unit = { playlist ->
@@ -70,82 +67,31 @@ fun SongScreen(
         }
     }
 
-    var song by remember {
-        mutableStateOf<Song?>(null)
-    }
-    var interpret by remember {
-        mutableStateOf<String?>(null)
-    }
-    var genre by remember {
-        mutableStateOf<String?>(null)
-    }
-    var decade by remember {
-        mutableStateOf<String?>(null)
-    }
-
-    LaunchedEffect(Unit) {
-        val retrievedSong = searchViewModel.getSongById(songId)
-        song = retrievedSong
-
-        retrievedSong?.let {
-            val interpretResult = searchViewModel.getInterpretBySongId(it.id_song)
-            val genreResult = searchViewModel.getGenreBySongId(it.id_song)
-            val decadeResult = searchViewModel.getDecadeBySongId(it.id_song)
-
-            interpret = interpretResult
-            genre = genreResult
-            decade = decadeResult
-        }
-    }
-
-    Log.d("SongScreen", "Received songId: $songId")
-    Log.d("SongScreen", "Retrieved song: $song")
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Song Details") },
-                navigationIcon = {
-                    IconButton(onClick = navigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
-                }
-            )
-        },
-        content = { innerPadding ->
-            Column(
-                modifier = modifier
-                    .padding(innerPadding)
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+    BaseSongScreen(
+        songId = songId,
+        searchViewModel = searchViewModel,
+        navigateBack = navigateBack,
+        modifier = modifier,
+        content = {
+        // Content specific to SongScreen
+            Button(
+                onClick = { showDialog.value = true },
+                modifier = Modifier.fillMaxWidth()
             ) {
-                song?.let {
-                    Text(text = "Name: ${it.name_song}", style = MaterialTheme.typography.bodyLarge)
-                    Text(text = "Interpret: ${interpret ?: "Loading..."}", style = MaterialTheme.typography.bodyLarge)
-                    Text(text = "Genre: ${genre ?: "Loading..."}", style = MaterialTheme.typography.bodyLarge)
-                    Text(text = "Decade: ${decade ?: "Loading..."}", style = MaterialTheme.typography.bodyLarge)
-                } ?: run {
-                    Text(text = "Song not found", style = MaterialTheme.typography.bodyLarge)
-                }
-                Button(
-                    onClick = { showDialog.value = true },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Přidat do playlistu")
-                }
+                Text("Přidat do playlistu")
+            }
 
-                // Zobrazení dialogu s výběrem playlistu, pokud je showDialog true
-                if (showDialog.value) {
-                    PlaylistSelectionDialog(
-                        playlists = playlists,
-                        onPlaylistSelected = addToPlaylist,
-                        onDismiss = { showDialog.value = false }
-                    )
-                }
+            if (showDialog.value) {
+                PlaylistSelectionDialog(
+                    playlists = playlists,
+                    onPlaylistSelected = addToPlaylist,
+                    onDismiss = { showDialog.value = false }
+                )
             }
         }
     )
 }
+
 
 @Composable
 fun PlaylistSelectionDialog(
