@@ -7,6 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.example.connectmusic.data.repositories.PlaylistRepository
 import com.example.connectmusic.data.tables.Playlist
 
+/**
+ * View model pre NewPlaylistScreen.
+ * Ziskava zoznam playlistov z databazy.
+ */
 class PlaylistEntryViewModel(private val playlistRepository: PlaylistRepository) : ViewModel() {
 
     var playlistUiState by mutableStateOf(PlaylistUiState())
@@ -30,6 +34,9 @@ class PlaylistEntryViewModel(private val playlistRepository: PlaylistRepository)
     }
 }
 
+/**
+ * Ui State pre Playlist.
+ */
 data class PlaylistUiState(
     val playlistDetails: PlaylistDetails = PlaylistDetails(),
     val isEntryValid: Boolean = false
@@ -44,11 +51,6 @@ data class PlaylistDetails(
 fun PlaylistDetails.toPlaylist(): Playlist = Playlist(
     id_playlist = idPlaylist,
     name_playlist = namePlaylist
-)
-
-fun Playlist.toPlayslistUiState(isEntryValid: Boolean = false): PlaylistUiState = PlaylistUiState(
-    playlistDetails = this.toPlaylistDetails(),
-    isEntryValid = isEntryValid
 )
 
 fun Playlist.toPlaylistDetails(): PlaylistDetails = PlaylistDetails(

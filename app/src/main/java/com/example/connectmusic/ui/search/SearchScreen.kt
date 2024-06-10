@@ -4,20 +4,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -26,15 +22,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.connectmusic.ConnectMusicTopAppBar
 import com.example.connectmusic.R
-import com.example.connectmusic.data.tables.Song
 import com.example.connectmusic.ui.AppViewModelProvider
 import com.example.connectmusic.ui.navigation.NavigationDestination
 import kotlinx.coroutines.launch
 
+/**
+ * Navigacna destinacia pre SearchScreen
+ */
 object SearchDestination : NavigationDestination {
     override val route = "search_entry"
     override val titleRes = R.string.search_entry_title
@@ -53,34 +52,30 @@ fun SearchScreen(
     var isMethodDropdownExpanded by remember { mutableStateOf(false) }
     var isOptionDropdownExpanded by remember { mutableStateOf(false) }
 
-    val methods = listOf("Žáner", "Interpret", "Obdobie")
+    val methods = listOf(
+        stringResource(R.string.genre),
+        stringResource(R.string.interpret),
+        stringResource(R.string.decade)
+    )
 
     val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.search_entry_title),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                        },
-                navigationIcon = {
-                    IconButton(onClick = navigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
-                }
+            ConnectMusicTopAppBar(
+                title = stringResource(SearchDestination.titleRes),
+                canNavigateBack = true,
+                navigateUp = navigateBack
             )
         },
         content = { innerPadding ->
             Column(
                 modifier = modifier
                     .padding(innerPadding)
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                    .padding(dimensionResource(R.dimen.padding_medium)),
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
             ) {
-                // Dropdown pro výběr metody
                 ExposedDropdownMenuBox(
                     expanded = isMethodDropdownExpanded,
                     onExpandedChange = { isMethodDropdownExpanded = !isMethodDropdownExpanded }
@@ -89,7 +84,7 @@ fun SearchScreen(
                         value = selectedMethod,
                         onValueChange = { selectedMethod = it },
                         readOnly = true,
-                        label = { Text("Vyber metódu") },
+                        label = { Text(stringResource(R.string.select_method)) },
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(
                                 expanded = isMethodDropdownExpanded
@@ -118,7 +113,6 @@ fun SearchScreen(
                     }
                 }
 
-                // Dropdown pro výběr možnosti
                 val options by searchViewModel.data.collectAsState(initial = emptyList())
 
                 ExposedDropdownMenuBox(
@@ -129,7 +123,7 @@ fun SearchScreen(
                         value = selectedOption,
                         onValueChange = { selectedOption = it },
                         readOnly = true,
-                        label = { Text("Vyber $selectedMethod") },
+                        label = { Text(stringResource(R.string.select_option)) },
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(
                                 expanded = isOptionDropdownExpanded
@@ -171,7 +165,7 @@ fun SearchScreen(
                     enabled = selectedMethod.isNotBlank() && selectedOption.isNotBlank(),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Vyhľadať")
+                    Text(stringResource(R.string.search))
                 }
             }
         }

@@ -10,7 +10,8 @@ interface SongRepository {
     fun getSongsByInterpret(interpret: String): List<Song>
     fun getSongsByDecade(decade: String): List<Song>
     fun getSongById(id: Int): Song?
-    fun getInterpretBySongId(id: Int): String?
+    fun getSongName(id: Int): String
+    fun getInterpretBySongId(id: Int): String
     fun getGenreBySongId(id: Int): String?
     fun getDecadeBySongId(id: Int): String?
     suspend fun insertSong(song: Song)

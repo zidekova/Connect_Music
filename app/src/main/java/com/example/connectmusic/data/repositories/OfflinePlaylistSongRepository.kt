@@ -9,7 +9,8 @@ class OfflinePlaylistSongRepository(private val playlistSongDao: PlaylistSongDao
 
     override fun getPlaylistSongStream(id: Int): Flow<PlaylistSong?> = playlistSongDao.getPlaylistSong(id)
     override fun getAllPlaylistSongsNames(idPlaylist: Int): List<String> = playlistSongDao.getAllPlaylistSongsNames(idPlaylist)
-    override fun getAllPlaylistSongs(idPlaylist: Int): List<PlaylistSong> = playlistSongDao.getAllPlaylistSongs(idPlaylist)
+    override fun getAllPlaylistSongs(idPlaylist: Int): Flow<List<PlaylistSong>> = playlistSongDao.getAllPlaylistSongs(idPlaylist)
+    override fun getNameSongFromId(idSong: Int): String = playlistSongDao.getNameSongFromId(idSong)
 
     override fun getIdSongByName(nameSong: String): Int = playlistSongDao.getIdSongByName(nameSong)
 

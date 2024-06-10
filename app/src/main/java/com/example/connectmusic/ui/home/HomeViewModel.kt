@@ -9,6 +9,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
+/**
+ * View model pre domovsku obrazovku.
+ * Ziskava zoznam playlistov z databazy.
+ */
 class HomeViewModel(playlistRepository: PlaylistRepository) : ViewModel() {
     val homeUiState: StateFlow<HomeUiState> =
         playlistRepository.getAllPlaylistsStream().map { HomeUiState(it) }
@@ -23,6 +27,9 @@ class HomeViewModel(playlistRepository: PlaylistRepository) : ViewModel() {
     }
 }
 
+/**
+ * Ui State pre HomeScreen
+ */
 data class HomeUiState(
     val playlistsList: List<Playlist> = listOf()
 )

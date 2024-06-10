@@ -39,7 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(context, AppDatabase::class.java, "CM_database")
                     .fallbackToDestructiveMigration()
-                    .createFromAsset("database/CM_database.db").build()
+                    .build()
                     .also { Instance = it }
 
             }

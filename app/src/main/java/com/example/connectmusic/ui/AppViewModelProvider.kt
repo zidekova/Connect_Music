@@ -11,19 +11,13 @@ import com.example.connectmusic.ui.home.HomeViewModel
 import com.example.connectmusic.ui.playlist.PlaylistDetailsViewModel
 import com.example.connectmusic.ui.playlist.PlaylistEntryViewModel
 import com.example.connectmusic.ui.search.SearchViewModel
+import com.example.connectmusic.ui.song.SongViewModel
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
  */
 object AppViewModelProvider {
     val Factory = viewModelFactory {
-        // Initializer for ItemEditViewModel
-//        initializer {
-//            ItemEditViewModel(
-//                this.createSavedStateHandle(),
-//                inventoryApplication().container.itemsRepository
-//            )
-//        }
         // Initializer for PlaylistEntryViewModel
         initializer {
             PlaylistEntryViewModel(connectMusicApplication().container.playlistRepository)
@@ -49,6 +43,13 @@ object AppViewModelProvider {
                 connectMusicApplication().container.genreRepository,
                 connectMusicApplication().container.interpretRepository,
                 connectMusicApplication().container.decadeRepository,
+                connectMusicApplication().container.songRepository
+            )
+        }
+
+        // Initializer for SongViewModel
+        initializer {
+            SongViewModel(
                 connectMusicApplication().container.songRepository,
                 connectMusicApplication().container.playlistRepository,
                 connectMusicApplication().container.playlistSongRepository

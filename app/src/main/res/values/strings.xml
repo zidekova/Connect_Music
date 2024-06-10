@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Connect Music</string>
+    <string name="add_to_playlist">Pridať do playlistu</string>
     <string name="attention">"Upozornenie!"</string>
     <string name="back_button">Späť</string>
     <string name="delete">Vymaž</string>
@@ -7,9 +8,10 @@
     <string name="delete_playlist_title">Odstránenie playlistu</string>
     <string name="delete_song_question">Naozaj chcete vymazať skladbu z playlistu?</string>
     <string name="delete_song_title">Odstránenie skladby</string>
+    <string name="cancel">Zrušiť</string>
     <string name="no">Nie</string>
     <string name="yes">Áno</string>
-    <string name="no_playlist_description">Ups!\nŽiadne uložené playlisty.\nStlač + a pridaj nový playlist.</string>
+    <string name="no_playlist_description">Žiadne uložené playlisty.\nStlač + a pridaj nový playlist.</string>
     <string name="no_songs_description">Tento playlist je prázdny!</string>
     <string name="pick_method">Vyber si spôsob výberu pesničky:</string>
     <string name="playlist">Playlist</string>
@@ -19,8 +21,14 @@
     <string name="save_action">Ulož</string>
     <string name="next_action">Ďalej</string>
     <string name="search_entry_title">Nájdi novú pesničku</string>
+    <string name="search">Vyhľadať</string>
+    <string name="select_method">Vyber metódu</string>
+    <string name="select_option">Vyber možnosť</string>
+    <string name="select_playlist">Vyber playlist</string>
     <string name="song_entry_title">Nájdi novú pesničku</string>
     <string name="song_details_title">Detaily o skladbe</string>
+    <string name="song_not_found">Pieseň sa nenašla</string>
+    <string name="youtube_search">Vyhľadať na YouTube</string>
     <string name="genre">Žáner</string>
     <string name="interpret">Interpret</string>
     <string name="decade">Obdobie</string>

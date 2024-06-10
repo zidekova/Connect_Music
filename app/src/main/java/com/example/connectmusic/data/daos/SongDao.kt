@@ -28,8 +28,12 @@ interface SongDao {
 
     @Query("SELECT * FROM song WHERE id_song = :id")
     fun getSongById(id: Int): Song?
+
+    @Query("SELECT name_song FROM song WHERE id_song = :id")
+    fun getSongName(id: Int): String
+
     @Query("SELECT name_interpret FROM interpret JOIN song USING(id_interpret) WHERE id_song = :id")
-    fun getInterpretBySongId(id: Int): String?
+    fun getInterpretBySongId(id: Int): String
     @Query("SELECT name_genre FROM genre JOIN interpret USING(id_genre) JOIN song USING(id_interpret) WHERE id_song = :id")
     fun getGenreBySongId(id: Int): String?
     @Query("SELECT name_decade FROM decade JOIN song USING(id_decade) WHERE id_song = :id")

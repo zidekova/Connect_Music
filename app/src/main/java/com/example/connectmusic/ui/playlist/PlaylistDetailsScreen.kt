@@ -1,7 +1,5 @@
 package com.example.connectmusic.ui.playlist
 
-import android.util.Log
-import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,22 +13,15 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -41,27 +32,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.connectmusic.ConnectMusicTopAppBar
 import com.example.connectmusic.R
-import com.example.connectmusic.data.tables.Playlist
-import com.example.connectmusic.data.tables.PlaylistSong
-import com.example.connectmusic.data.tables.Song
 import com.example.connectmusic.ui.AppViewModelProvider
 import com.example.connectmusic.ui.navigation.NavigationDestination
 import kotlinx.coroutines.launch
 
+/**
+ * Navigacna destinacia pre PlaylistDetailsScreen
+ */
 object PlaylistDetailsDestination : NavigationDestination {
     override val route = "playlist_details"
     override val titleRes = R.string.playlist_details_title
@@ -77,11 +63,10 @@ fun PlaylistDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: PlaylistDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    val uiState = viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
     val songNames = remember { mutableStateOf<List<String>>(emptyList()) }
 
-    // Fetch song names
     LaunchedEffect(uiState) {
         val names = viewModel.getPlaylistSong(viewModel.playlistId)
         songNames.value = names ?: emptyList()
@@ -148,12 +133,15 @@ fun PlaylistDetailsScreen(
     }
 }
 
+/**
+ * Telo obrazovky PlaylistDetailsScreen
+ */
 @Composable
 private fun PlaylistDetailsBody(
     songNames: List<String>,
     onSongClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp)
+    contentPadding: PaddingValues = PaddingValues(dimensionResource(R.dimen.padding_small))
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -177,6 +165,9 @@ private fun PlaylistDetailsBody(
     }
 }
 
+/**
+ * Vykreslenie ulozeneho skladby
+ */
 @Composable
 private fun SavedSong(
     songName: String,
@@ -185,13 +176,13 @@ private fun SavedSong(
 ) {
     Card(
         modifier = modifier
-            .clickable { onClick() } // Add clickable modifier
-            .padding(dimensionResource(id = R.dimen.padding_small)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            .clickable { onClick() }
+            .padding(dimensionResource(R.dimen.padding_small)),
+        elevation = CardDefaults.cardElevation(defaultElevation = dimensionResource(R.dimen.padding_minimum))
     ) {
         Column(
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
-            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
+            modifier = Modifier.padding(dimensionResource(R.dimen.padding_large)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth()
@@ -206,11 +197,14 @@ private fun SavedSong(
     }
 }
 
+/**
+ * Confirmation dialog pre odstranenie playlistu
+ */
 @Composable
 fun DeleteConfirmationDialog(
     onDeleteConfirm: () -> Unit, onDeleteCancel: () -> Unit, modifier: Modifier = Modifier
 ) {
-    AlertDialog(onDismissRequest = { /* Do nothing */ },
+    AlertDialog(onDismissRequest = { },
         title = { Text(stringResource(R.string.attention)) },
         text = { Text(stringResource(R.string.delete_playlist_question)) },
         modifier = modifier,

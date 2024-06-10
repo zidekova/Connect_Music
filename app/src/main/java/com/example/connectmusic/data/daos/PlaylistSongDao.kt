@@ -16,13 +16,17 @@ interface PlaylistSongDao {
     ///////////////// UPRAVIT //////////////////////
     @Query("SELECT * from playlist_song")
     fun getAllPlaylistSongs(): Flow<List<PlaylistSong>>
+
     @Query("SELECT * from playlist_song WHERE id_playlist_song = :id")
     fun getPlaylistSong(id: Int): Flow<PlaylistSong>
     @Query("SELECT name_song from song JOIN playlist_song USING(id_song) WHERE id_playlist = :idPlaylist")
     fun getAllPlaylistSongsNames(idPlaylist: Int): List<String>
 
     @Query("SELECT * from playlist_song WHERE id_playlist = :idPlaylist")
-    fun getAllPlaylistSongs(idPlaylist: Int): List<PlaylistSong>
+    fun getAllPlaylistSongs(idPlaylist: Int): Flow<List<PlaylistSong>>
+
+    @Query("SELECT name_song from song JOIN playlist_song USING(id_song) WHERE id_song = :idSong")
+    fun getNameSongFromId(idSong: Int): String
 
     @Query("DELETE from playlist_song WHERE id_playlist = :idPlaylist")
     suspend fun deletePlaylistSongFromPlaylist(idPlaylist: Int)

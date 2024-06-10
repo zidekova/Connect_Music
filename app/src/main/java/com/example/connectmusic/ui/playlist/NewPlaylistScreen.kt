@@ -2,23 +2,14 @@ package com.example.connectmusic.ui.playlist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -30,23 +21,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.connectmusic.ConnectMusicTopAppBar
 import com.example.connectmusic.R
 import com.example.connectmusic.ui.AppViewModelProvider
 import com.example.connectmusic.ui.navigation.NavigationDestination
-import com.example.connectmusic.ui.theme.ConnectMusicTheme
 import kotlinx.coroutines.launch
 
-object PlaylistEntryDestination : NavigationDestination {
+/**
+ * Navigacna destinacia pre NewPlaylistScreen
+ */
+object NewPlaylistDestination : NavigationDestination {
     override val route = "playlist_entry"
     override val titleRes = R.string.playlist_entry_title
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlaylistEntryScreen(
+fun NewPlaylistScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     canNavigateBack: Boolean = true,
@@ -56,13 +48,13 @@ fun PlaylistEntryScreen(
     Scaffold(
         topBar = {
             ConnectMusicTopAppBar(
-                title = stringResource(PlaylistEntryDestination.titleRes),
+                title = stringResource(NewPlaylistDestination.titleRes),
                 canNavigateBack = canNavigateBack,
                 navigateUp = onNavigateUp
             )
         },
     ) { innerPadding ->
-        PlaylistEntryBody(
+        NewPlaylistBody(
             playlistUiState = viewModel.playlistUiState,
             onPlaylistValueChange = viewModel::updateUiState,
             onSaveClick = {
@@ -83,16 +75,19 @@ fun PlaylistEntryScreen(
     }
 }
 
+/**
+ * Telo obrazovky NewPlaylistScreen
+ */
 @Composable
-fun PlaylistEntryBody(
+fun NewPlaylistBody(
     playlistUiState: PlaylistUiState,
     onPlaylistValueChange: (PlaylistDetails) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large))
+        modifier = modifier.padding(dimensionResource(R.dimen.padding_medium)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_large))
     ) {
         PlaylistInputForm(
             playlistDetails = playlistUiState.playlistDetails,
@@ -110,6 +105,9 @@ fun PlaylistEntryBody(
     }
 }
 
+/**
+ * InputForm na vlozenie nazvu pre novy playlist
+ */
 @Composable
 fun PlaylistInputForm(
     playlistDetails: PlaylistDetails,
@@ -119,7 +117,7 @@ fun PlaylistInputForm(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
     ) {
         OutlinedTextField(
             value = playlistDetails.namePlaylist,

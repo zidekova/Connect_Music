@@ -7,7 +7,8 @@ interface PlaylistSongRepository {
     fun getAllPlaylistSongsStream(): Flow<List<PlaylistSong>>
     fun getPlaylistSongStream(id: Int): Flow<PlaylistSong?>
     fun getAllPlaylistSongsNames(idPlaylist: Int): List<String>
-    fun getAllPlaylistSongs(idPlaylist: Int): List<PlaylistSong>
+    fun getAllPlaylistSongs(idPlaylist: Int): Flow<List<PlaylistSong>>
+    fun getNameSongFromId(idSong: Int): String
     fun getIdSongByName(nameSong: String): Int
     suspend fun insertPlaylistSong(playlistSong: PlaylistSong)
     suspend fun deletePlaylistSong(playlistSong: PlaylistSong)

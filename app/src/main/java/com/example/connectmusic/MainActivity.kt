@@ -13,12 +13,9 @@ import com.example.connectmusic.ui.theme.ConnectMusicTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("MainActivity", "onCreate: Start")
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        Log.d("MainActivity", "onCreate: After super.onCreate")
         setContent {
-            Log.d("MainActivity", "onCreate: setContent")
             ConnectMusicTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -28,6 +25,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        Log.d("MainActivity", "onCreate: End")
     }
 }
