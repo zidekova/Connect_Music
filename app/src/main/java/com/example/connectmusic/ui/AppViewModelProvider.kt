@@ -9,21 +9,21 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.connectmusic.ConnectMusicApplication
 import com.example.connectmusic.ui.home.HomeViewModel
 import com.example.connectmusic.ui.playlist.PlaylistDetailsViewModel
-import com.example.connectmusic.ui.playlist.PlaylistEntryViewModel
+import com.example.connectmusic.ui.playlist.NewPlaylistViewModel
 import com.example.connectmusic.ui.search.SearchViewModel
 import com.example.connectmusic.ui.song.SongViewModel
 
 /**
- * Provides Factory to create instance of ViewModel for the entire Inventory app
+ * Vytvorenie instancii ViewModelov pre celu aplikaciu
  */
 object AppViewModelProvider {
     val Factory = viewModelFactory {
-        // Initializer for PlaylistEntryViewModel
+        // Initializer pre NewPlaylistViewModel
         initializer {
-            PlaylistEntryViewModel(connectMusicApplication().container.playlistRepository)
+            NewPlaylistViewModel(connectMusicApplication().container.playlistRepository)
         }
 
-        // Initializer for PlaylistDetailsViewModel
+        // Initializer pre PlaylistDetailsViewModel
         initializer {
             PlaylistDetailsViewModel(
                 this.createSavedStateHandle(),
@@ -32,12 +32,12 @@ object AppViewModelProvider {
             )
         }
 
-        // Initializer for HomeViewModel
+        // Initializer pre HomeViewModel
         initializer {
             HomeViewModel(connectMusicApplication().container.playlistRepository)
         }
 
-        // Initializer for SearchViewModel
+        // Initializer pre SearchViewModel
         initializer {
             SearchViewModel(
                 connectMusicApplication().container.genreRepository,
@@ -47,7 +47,7 @@ object AppViewModelProvider {
             )
         }
 
-        // Initializer for SongViewModel
+        // Initializer pre SongViewModel
         initializer {
             SongViewModel(
                 connectMusicApplication().container.songRepository,
@@ -58,9 +58,5 @@ object AppViewModelProvider {
     }
 }
 
-/**
- * Extension function to queries for [Application] object and returns an instance of
- * [ConnectMusicApplication].
- */
 fun CreationExtras.connectMusicApplication(): ConnectMusicApplication =
     (this[AndroidViewModelFactory.APPLICATION_KEY] as ConnectMusicApplication)

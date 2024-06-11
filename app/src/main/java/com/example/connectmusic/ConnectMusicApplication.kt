@@ -7,7 +7,7 @@ import com.example.connectmusic.data.DatabaseInitializer
 
 class ConnectMusicApplication : Application() {
     /**
-     * AppContainer instance used by the rest of classes to obtain dependencies
+     * Instancia AppContaineru na ziskanie zavislosti
      */
     lateinit var container: AppContainer
 

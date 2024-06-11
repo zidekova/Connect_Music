@@ -11,6 +11,7 @@
     <string name="cancel">Zrušiť</string>
     <string name="no">Nie</string>
     <string name="yes">Áno</string>
+    <string name="ok">OK</string>
     <string name="no_playlist_description">Žiadne uložené playlisty.\nStlač + a pridaj nový playlist.</string>
     <string name="no_songs_description">Tento playlist je prázdny!</string>
     <string name="pick_method">Vyber si spôsob výberu pesničky:</string>

@@ -6,12 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class OfflinePlaylistRepository(private val playlistDao: PlaylistDao) : PlaylistRepository {
     override fun getAllPlaylistsStream(): Flow<List<Playlist>> = playlistDao.getAllPlaylists()
-
     override fun getPlaylistStream(id: Int): Flow<Playlist?> = playlistDao.getPlaylist(id)
-
     override suspend fun insertPlaylist(playlist: Playlist) = playlistDao.insert(playlist)
-
     override suspend fun deletePlaylist(playlist: Playlist) = playlistDao.delete(playlist)
-
-    override suspend fun updatePlaylist(playlist: Playlist) = playlistDao.update(playlist)
 }

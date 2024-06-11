@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
+/**
+ * Entity data class reperezentujuca jeden riadok v databaze v tabulke [interpret].
+ */
 @Entity(tableName = "interpret", foreignKeys = [
     ForeignKey(entity = Genre::class, parentColumns = ["id_genre"], childColumns = ["id_genre"], onDelete = ForeignKey.NO_ACTION, onUpdate = ForeignKey.NO_ACTION)
 ])

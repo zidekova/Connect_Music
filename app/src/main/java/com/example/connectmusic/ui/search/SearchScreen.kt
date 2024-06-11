@@ -13,13 +13,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -47,10 +46,10 @@ fun SearchScreen(
     navigateToSongDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var selectedMethod by remember { mutableStateOf("") }
-    var selectedOption by remember { mutableStateOf("") }
-    var isMethodDropdownExpanded by remember { mutableStateOf(false) }
-    var isOptionDropdownExpanded by remember { mutableStateOf(false) }
+    var selectedMethod by rememberSaveable  { mutableStateOf("") }
+    var selectedOption by rememberSaveable  { mutableStateOf("") }
+    var isMethodDropdownExpanded by rememberSaveable  { mutableStateOf(false) }
+    var isOptionDropdownExpanded by rememberSaveable  { mutableStateOf(false) }
 
     val methods = listOf(
         stringResource(R.string.genre),
@@ -59,7 +58,6 @@ fun SearchScreen(
     )
 
     val coroutineScope = rememberCoroutineScope()
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
         topBar = {

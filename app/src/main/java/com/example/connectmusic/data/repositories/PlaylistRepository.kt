@@ -8,5 +8,4 @@ interface PlaylistRepository {
     fun getPlaylistStream(id: Int): Flow<Playlist?>
     suspend fun insertPlaylist(playlist: Playlist)
     suspend fun deletePlaylist(playlist: Playlist)
-    suspend fun updatePlaylist(playlist: Playlist)
 }

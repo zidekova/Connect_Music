@@ -107,11 +107,9 @@ fun ConnectMusicNavHost(
             )
         ) { backStackEntry ->
             val songId = backStackEntry.arguments?.getInt(PlaylistSongDestination.songIdArg) ?: return@composable
-            val playlistId = backStackEntry.arguments?.getInt(PlaylistSongDestination.playlistIdArg) ?: return@composable
 
             PlaylistSongScreen(
                 songId = songId,
-                playlistId = playlistId,
                 navigateBack = { navController.popBackStack() }
             )
         }

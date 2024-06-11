@@ -14,22 +14,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.connectmusic.R.string
-import com.example.connectmusic.data.repositories.GenreRepository
 import com.example.connectmusic.ui.navigation.ConnectMusicNavHost
 
 /**
- * Top level composable that represents screens for the application.
+ * Vsetky screens v aplikacii.
  */
 @Composable
 fun ConnectMusicApp(navController: NavHostController = rememberNavController()) {
-
-    ConnectMusicNavHost(
-        navController = navController,
-    )
+    ConnectMusicNavHost(navController = navController)
 }
 
 /**
- * App bar to display title and conditionally display the back navigation.
+ * TopAppBar pre aplikaciu.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

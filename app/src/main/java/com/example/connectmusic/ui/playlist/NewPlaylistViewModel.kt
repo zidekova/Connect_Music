@@ -11,7 +11,7 @@ import com.example.connectmusic.data.tables.Playlist
  * View model pre NewPlaylistScreen.
  * Ziskava zoznam playlistov z databazy.
  */
-class PlaylistEntryViewModel(private val playlistRepository: PlaylistRepository) : ViewModel() {
+class NewPlaylistViewModel(private val playlistRepository: PlaylistRepository) : ViewModel() {
 
     var playlistUiState by mutableStateOf(PlaylistUiState())
         private set

@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
+/**
+ * Entity data class reperezentujuca jeden riadok v databaze v tabulke [playlist_song].
+ */
 @Entity(tableName = "playlist_song", foreignKeys = [
     ForeignKey(entity = Playlist::class, parentColumns = ["id_playlist"], childColumns = ["id_playlist"], onDelete = ForeignKey.NO_ACTION, onUpdate = ForeignKey.NO_ACTION),
     ForeignKey(entity = Song::class, parentColumns = ["id_song"], childColumns = ["id_song"], onDelete = ForeignKey.NO_ACTION, onUpdate = ForeignKey.NO_ACTION)

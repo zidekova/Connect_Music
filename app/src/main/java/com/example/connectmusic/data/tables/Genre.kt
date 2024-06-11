@@ -3,6 +3,9 @@ package com.example.connectmusic.data.tables
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * Entity data class reperezentujuca jeden riadok v databaze v tabulke [genre].
+ */
 @Entity(tableName = "genre")
 data class Genre(
     @PrimaryKey(autoGenerate = true)

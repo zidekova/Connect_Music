@@ -10,11 +10,7 @@ import com.example.connectmusic.data.tables.PlaylistSong
 import com.example.connectmusic.data.tables.Song
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -27,24 +23,6 @@ class SongViewModel(
     private val playlistRepository: PlaylistRepository,
     private val playlistSongRepository: PlaylistSongRepository
 ) : ViewModel() {
-
-    val uiState: StateFlow<SongUiState> =
-        playlistSongRepository.getAllPlaylistSongsStream()
-            .filterNotNull()
-            .map { songsList ->
-                SongUiState(
-                    songsList = songsList
-                )
-            }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-                initialValue = SongUiState()
-            )
-
-    companion object {
-        private const val TIMEOUT_MILLIS = 5_000L
-    }
 
     private val _data = MutableStateFlow<List<String>>(emptyList())
     val data: StateFlow<List<String>> = _data
@@ -102,12 +80,5 @@ class SongViewModel(
         }
     }
 }
-
-/**
- * Ui State pre PlaylistSong.
- */
-data class SongUiState(
-    val songsList: List<PlaylistSong> = listOf()
-)
 
 

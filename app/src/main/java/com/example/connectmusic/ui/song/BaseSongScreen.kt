@@ -1,10 +1,14 @@
 package com.example.connectmusic.ui.song
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -19,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import com.example.connectmusic.ConnectMusicTopAppBar
 import com.example.connectmusic.R
 import com.example.connectmusic.data.tables.Song
@@ -65,23 +70,53 @@ fun BaseSongScreen(
             )
         },
         content = { innerPadding ->
-            Column(
+            Box(
                 modifier = modifier
-                    .padding(innerPadding)
                     .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(innerPadding)
                     .padding(dimensionResource(R.dimen.padding_medium)),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                contentAlignment = Alignment.Center
             ) {
-                song?.let {
-                    Text(text = it.name_song, style = MaterialTheme.typography.titleLarge)
-                    Text(text = interpret ?: "", style = MaterialTheme.typography.titleMedium)
-                    Text(text = genre ?: "", style = MaterialTheme.typography.titleMedium)
-                    Text(text = decade ?: "", style = MaterialTheme.typography.titleMedium)
-                } ?: run {
-                    Text(text = stringResource(R.string.song_not_found), style = MaterialTheme.typography.bodyLarge)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    song?.let {
+                        Text(
+                            text = it.name_song,
+                            style = MaterialTheme.typography.titleLarge,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Text(
+                            text = interpret ?: "",
+                            style = MaterialTheme.typography.titleMedium,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Text(
+                            text = genre ?: "",
+                            style = MaterialTheme.typography.titleMedium,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Text(
+                            text = decade ?: "",
+                            style = MaterialTheme.typography.titleMedium,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    } ?: run {
+                        Text(
+                            text = stringResource(R.string.song_not_found),
+                            style = MaterialTheme.typography.bodyLarge,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                    content()
                 }
-                content()
             }
         }
     )

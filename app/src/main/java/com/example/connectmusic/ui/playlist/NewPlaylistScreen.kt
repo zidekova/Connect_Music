@@ -42,7 +42,7 @@ fun NewPlaylistScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     canNavigateBack: Boolean = true,
-    viewModel: PlaylistEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: NewPlaylistViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
