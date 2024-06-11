@@ -40,7 +40,6 @@ abstract class AppDatabase : RoomDatabase() {
                     .fallbackToDestructiveMigration()
                     .build()
                     .also { Instance = it }
-
             }
         }
     }

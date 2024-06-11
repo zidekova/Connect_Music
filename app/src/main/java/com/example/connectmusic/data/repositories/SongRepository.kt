@@ -1,7 +1,6 @@
 package com.example.connectmusic.data.repositories
 
 import com.example.connectmusic.data.tables.Song
-import kotlinx.coroutines.flow.Flow
 
 interface SongRepository {
     fun getSongsByGenre(genre: String): List<Song>

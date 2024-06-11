@@ -40,6 +40,9 @@ object SongDestination : NavigationDestination {
     val routeWithArgs = "$route/{$songIdArg}"
 }
 
+/**
+ * Obrazovka na zobrazenie detailov o skladbe a na ulozenie skladby do playlistu.
+ */
 @Composable
 fun SongScreen(
     songId: Int,

@@ -2,7 +2,6 @@ package com.example.connectmusic.data.repositories
 
 import com.example.connectmusic.data.daos.SongDao
 import com.example.connectmusic.data.tables.Song
-import kotlinx.coroutines.flow.Flow
 
 class OfflineSongRepository(private val songDao: SongDao) : SongRepository {
     override fun getSongsByGenre(genre: String): List<Song> = songDao.getSongsByGenre(genre)

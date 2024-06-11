@@ -36,6 +36,9 @@ object NewPlaylistDestination : NavigationDestination {
     override val titleRes = R.string.playlist_entry_title
 }
 
+/**
+ * Obrazovka na vytvorenie noveho playlistu.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewPlaylistScreen(

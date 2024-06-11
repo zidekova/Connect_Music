@@ -28,6 +28,9 @@ object PlaylistSongDestination : NavigationDestination {
     val routeWithArgs = "playlist_song_entry/{$songIdArg}/{$playlistIdArg}"
 }
 
+/**
+ * Obrazovka na zobrazenie detailov o skladbe a na prehranie skladby na YouTube.
+ */
 @Composable
 fun PlaylistSongScreen(
     songId: Int,

@@ -6,8 +6,6 @@
     <string name="delete">Vymaž</string>
     <string name="delete_playlist_question">Naozaj chcete vymazať tento playlist?</string>
     <string name="delete_playlist_title">Odstránenie playlistu</string>
-    <string name="delete_song_question">Naozaj chcete vymazať skladbu z playlistu?</string>
-    <string name="delete_song_title">Odstránenie skladby</string>
     <string name="cancel">Zrušiť</string>
     <string name="no">Nie</string>
     <string name="yes">Áno</string>

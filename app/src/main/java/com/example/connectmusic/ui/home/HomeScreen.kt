@@ -48,6 +48,9 @@ object HomeDestination : NavigationDestination {
     override val titleRes = R.string.app_name
 }
 
+/**
+ * Domovska obrazovka
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(

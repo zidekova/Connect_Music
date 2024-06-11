@@ -38,6 +38,9 @@ object SearchDestination : NavigationDestination {
     override val titleRes = R.string.search_entry_title
 }
 
+/**
+ * Obrazovka na generovanie skladieb.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
